@@ -9,6 +9,8 @@ opts.parse!
   branch.strip!.chomp!
   next if branch =~ %r![^/]+/master!
   next if branch =~ %r![^/]+/develop!
+  next if branch =~ %r![^/]+/release!
+  next if branch =~ %r![^/]+/hotfix!
 
   if `git branch --contains #{branch}`.each_line.any? { |included| included.strip.chomp =~ /\A[* ]*(develop|master)\z/ }
     ref = branch.sub(%r!^([^/]+)/!, '')
